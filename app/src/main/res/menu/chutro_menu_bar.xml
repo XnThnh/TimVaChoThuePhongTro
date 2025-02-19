@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/chutrohome"
+        android:title="Danh sách phòng"
+        android:icon="@drawable/ic_home"
+        />
+    <item
+        android:id="@+id/chutrophongcuatoi"
+        android:title="Phòng của tôi"
+        android:icon="@drawable/ic_room" />
+    <item
+        android:id="@+id/chutrottcn"
+        android:title="Thông tin cá nhân"
+        android:icon="@drawable/ic_profile"/>
+</menu>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission-sdk-23 android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.TimVaChoThuePhongTro"
+        tools:targetApi="31">
+        <activity
+            android:name=".khachthue.DanhSachPhongYeuThich"
+            android:exported="false" />
+        <activity
+            android:name=".chutro.DanhSachPhongCuaChu"
+            android:exported="false" />
+        <activity
+            android:name=".others.ChiTietPhong"
+            android:exported="false"
+            android:label="Chi tiết phòng" />
+        <activity
+            android:name=".others.ThongTinCaNhan"
+            android:exported="false"
+            android:label="Thông tin cá nhân" />
+        <activity
+            android:name=".khachthue.KhachThueHomePage"
+            android:exported="false"
+            android:label="Các phòng hiện có" />
+        <activity
+            android:name=".chutro.ChuTroHomePage"
+            android:exported="false"
+            android:label="Các phòng hiện có" />
+        <activity
+            android:name=".access.SignUp"
+            android:exported="false"
+            android:label="Đăng ký" />
+        <activity
+            android:name=".access.LoginActivity"
+            android:exported="true"
+            android:label="Đăng nhập">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

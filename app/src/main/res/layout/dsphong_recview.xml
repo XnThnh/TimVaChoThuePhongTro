@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent"
+    app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="#f7e5ad"
+    android:layout_marginBottom="30dp"
+    android:layout_margin="15dp"
+    >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            tools:layout_editor_absoluteX="160dp"
+            tools:layout_editor_absoluteY="164dp"
+            tools:srcCompat="@tools:sample/avatars"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDienTich"
+            android:layout_toRightOf="@+id/imageView"
+            android:text="Diện tích : "
+            android:textSize="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDiaChi"
+            android:layout_toRightOf="@+id/imageView"
+            android:layout_below="@+id/txtDienTich"
+            android:text="Địa chỉ : "
+            android:textSize="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtGiaTien"
+            android:layout_toRightOf="@+id/imageView"
+            android:layout_below="@+id/txtDiaChi"
+            android:text="Giá tiền : "
+            android:textSize="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
