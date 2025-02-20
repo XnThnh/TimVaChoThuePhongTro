@@ -1,8 +1,11 @@
 package com.example.timvachothuephongtro.others;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -27,6 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class ChiTietPhong extends AppCompatActivity {
+    private static final int REQUEST_TO_CALL = 123;
     private TextView txtChiTietSoTien, txtChiTietDienTich, txtChiTietDiaChi
             , txtChiTietGiaDien, txtChiTietGiaNuoc, txtChiTietGiaWifi,txtChiTietTienIch;
     private Button btnGoiChoChu;
@@ -151,10 +156,12 @@ public class ChiTietPhong extends AppCompatActivity {
             public void onClick(View view) {
                 if(btnGoiChoChu.getVisibility() == View.VISIBLE){
                     int sdtChu = Integer.parseInt(db.layThongTinChuTroTheoID(layIDPhong.getIntExtra("idChu",0)).getSoDienThoai());
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:"+sdtChu));
-                    startActivity(callIntent);
-                }
+                    if(xinQuyenGoi()){
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:"+sdtChu));
+                        startActivity(callIntent);
+                    }
+               }
             }
         });
         btnThich.setOnClickListener(new View.OnClickListener() {
@@ -187,5 +194,23 @@ public class ChiTietPhong extends AppCompatActivity {
             }
         });
     }
-    
+    private boolean xinQuyenGoi(){
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
+        if(checkSelfPermission(Manifest.permission.CALL_PHONE)== PackageManager.PERMISSION_GRANTED){
+            return true;
+        }
+        else{
+            String[] permission = {Manifest.permission.CALL_PHONE};
+            requestPermissions(permission,REQUEST_TO_CALL);
+        }
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == REQUEST_TO_CALL && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            xinQuyenGoi();
+        }
+    }
 }

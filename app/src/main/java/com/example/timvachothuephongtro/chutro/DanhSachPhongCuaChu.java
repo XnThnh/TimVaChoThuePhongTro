@@ -2,15 +2,24 @@ package com.example.timvachothuephongtro.chutro;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -38,6 +47,7 @@ public class DanhSachPhongCuaChu extends AppCompatActivity {
     private BottomNavigationView bottomMenu;
     private Intent intent;
     private FloatingActionButton addButton;
+    private int REQUEST_CODE_PICK_IMAGE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,6 +128,7 @@ public class DanhSachPhongCuaChu extends AppCompatActivity {
     }
 
     private void xuLyThemPhong(View view_them_phong,int chutroID) {
+        ImageButton imageButton = view_them_phong.findViewById(R.id.imageButton);
         EditText edtSoTien = view_them_phong.findViewById(R.id.edtSoTien);
         EditText edtDienTich = view_them_phong.findViewById(R.id.edtDienTich);
         EditText edtDiaChi = view_them_phong.findViewById(R.id.edtDiaChi);
@@ -125,7 +136,16 @@ public class DanhSachPhongCuaChu extends AppCompatActivity {
         EditText edtGiaNuoc = view_them_phong.findViewById(R.id.edtGiaNuoc);
         EditText edtGiaWifi = view_them_phong.findViewById(R.id.edtGiaWifi);
         EditText edtTienIch = view_them_phong.findViewById(R.id.edtTienIch);
+
         DBHelper db = new DBHelper(this);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(i,"Chon Anh"),REQUEST_CODE_PICK_IMAGE);
+            }
+        });
         if(edtSoTien.getText().toString().isEmpty() || edtDienTich.getText().toString().isEmpty() ||
         edtDiaChi.getText().toString().isEmpty() || edtGiaDien.getText().toString().isEmpty() ||
         edtGiaNuoc.getText().toString().isEmpty() || edtGiaWifi.getText().toString().isEmpty() ||
@@ -145,6 +165,15 @@ public class DanhSachPhongCuaChu extends AppCompatActivity {
             db.themPhong(phong_moi);
             db.close();
         }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == REQUEST_CODE_PICK_IMAGE && resultCode == RESULT_OK){
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            ImageButton imageButton = findViewById(R.id.imageButton);
+            imageButton.setImageBitmap(bitmap);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
