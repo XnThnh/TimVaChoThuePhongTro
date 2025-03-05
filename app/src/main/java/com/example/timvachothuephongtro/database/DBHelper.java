@@ -46,6 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "giawifi INTEGER NOT NULL," +
                 "tienich TEXT NOT NULL," +
                 "dachothue INTEGER DEFAULT 0," +
+                "urlanh TEXT, "+
                 "chutroid INTEGER NOT NULL," +
                 "FOREIGN KEY(chutroid) REFERENCES ChuTro(id))");
         db.execSQL("CREATE TABLE IF NOT EXISTS PhongYeuThich (" +
@@ -58,12 +59,17 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO ChuTro (hoten, taikhoan, matkhau,sodienthoai, vaitro) VALUES ('Chu tro 1', 'chutro1', '1','456', 'Chủ trọ')");
         db.execSQL("INSERT INTO ChuTro (hoten, taikhoan, matkhau,sodienthoai, vaitro) VALUES ('Chu tro 2', 'chutro2', '1','789', 'Chủ trọ')");
 
-        db.execSQL("INSERT INTO PhongTro (sotien, dientich, diachi, giadien, gianuoc, giawifi, tienich, dachothue, chutroid) VALUES\n" +
-                "(3000000, 20, \"123 Đường A, Phường B, Quận C\", 3500, 20000, 100000, \"Máy lạnh, Tủ lạnh, Giường, Bàn ghế\", 0, 1), " +
-                "(4500000, 25, \"456 Đường D, Phường E, Quận F\", 3800, 22000, 120000, \"Máy lạnh, Giường, Bàn ghế, Ban công\", 0, 2), " +
-                "(3500000, 22, \"789 Đường G, Phường H, Quận I\", 3600, 21000, 110000, \"Máy lạnh, Tủ lạnh, Giường\", 0, 1)," +
-                "(5000000, 30, \"101 Đường K, Phường L, Quận M\", 4000, 25000, 130000, \"Máy lạnh, Tủ lạnh, Giường, Bàn ghế, Bếp\", 0, 1)," +
-                "(4000000, 28, \"234 Đường N, Phường O, Quận P\", 3700, 23000, 115000, \"Máy lạnh, Giường, Bàn ghế\", 0, 2);");
+        db.execSQL("INSERT INTO PhongTro (sotien, dientich, diachi, giadien, gianuoc, giawifi, tienich, dachothue,urlanh, chutroid) VALUES\n" +
+                "(3000000, 20, \"123 Đường A, Phường B, Quận C\", 3500, 20000, 100000, \"Máy lạnh, Tủ lạnh, Giường, Bàn ghế\"," +
+                " 0, \"https://bandon.vn/uploads/posts/thiet-ke-nha-tro-dep-2020-bandon-0.jpg\", 1), " +
+                "(4500000, 25, \"456 Đường D, Phường E, Quận F\", 3800, 22000, 120000, \"Máy lạnh, Giường, Bàn ghế, Ban công\"," +
+                " 0, \"https://cafefcdn.com/203337114487263232/2024/11/26/46826586011156477472353227663679545028498852n-1732612272499-17326122727241511362724.jpg\", 2), " +
+                "(3500000, 22, \"789 Đường G, Phường H, Quận I\", 3600, 21000, 110000, \"Máy lạnh, Tủ lạnh, Giường\"," +
+                " 0, \"https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/10/4/1100796/7669B8393f63f83da172.jpg\", 1)," +
+                "(5000000, 30, \"101 Đường K, Phường L, Quận M\", 4000, 25000, 130000, \"Máy lạnh, Tủ lạnh, Giường, Bàn ghế, Bếp\"," +
+                " 0, \"https://i-connect.com.vn/data/news/7046/anh-28-do-noi-that-thong-minh.jpg\", 1)," +
+                "(4000000, 28, \"234 Đường N, Phường O, Quận P\", 3700, 23000, 115000, \"Máy lạnh, Giường, Bàn ghế\", " +
+                "0, \"https://s-housing.vn/wp-content/uploads/2022/09/thiet-ke-phong-tro-dep-54.jpg\", 2);");
 
         db.execSQL("INSERT INTO PhongYeuThich (phongtroid, khachthueid) VALUES\n" +
                 "(1, 1),\n" +
@@ -129,7 +135,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sql,null);
         while(cursor.moveToNext()){
             PhongTro pt = new PhongTro(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getString(3),cursor.getInt(4),
-                    cursor.getInt(5),cursor.getInt(6),cursor.getString(7),cursor.getInt(8),cursor.getInt(9));
+                    cursor.getInt(5),cursor.getInt(6),cursor.getString(7),cursor.getInt(8),cursor.getString(9),cursor.getInt(10));
             if(pt.getDaChoThue() == 0) list.add(pt);
         }
         cursor.close();
@@ -177,7 +183,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query("PhongTro",null,"chutroid = ?",new String[]{String.valueOf(chu.getId())},null,null,null);
         while(cursor.moveToNext()){
             PhongTro pt = new PhongTro(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getString(3),cursor.getInt(4),
-                    cursor.getInt(5),cursor.getInt(6),cursor.getString(7),cursor.getInt(8),cursor.getInt(9));
+                    cursor.getInt(5),cursor.getInt(6),cursor.getString(7),cursor.getInt(8),cursor.getString(9),cursor.getInt(10));
             dsPhongCuaChu.add(pt);
         }
         cursor.close();
@@ -194,6 +200,7 @@ public class DBHelper extends SQLiteOpenHelper {
         phong_moi.put("giawifi",phong.getGiaWifi());
         phong_moi.put("tienich",phong.getTienIch());
         phong_moi.put("dachothue",phong.getDaChoThue());
+        phong_moi.put("urlanh",phong.getUrlAnh());
         phong_moi.put("chutroid",phong.getChuTroId());
         if(db.insert("PhongTro",null,phong_moi) != -1){
             db.close();
@@ -233,6 +240,15 @@ public class DBHelper extends SQLiteOpenHelper {
         ChuTro ct = new ChuTro(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5));
         cursor.close();
         return ct;
+    }
+    public KhachThue layThongTinKhachTheoID(int idKhach) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("KhachThue",null,"id = ?",new String[]{String.valueOf(idKhach)},null,null,null);
+        if(cursor != null)
+            cursor.moveToFirst();
+        KhachThue kt = new KhachThue(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5));
+        cursor.close();
+        return kt;
     }
     public ArrayList<PhongTro> layDSPhongYeuThich(String usernameKhach){
         KhachThue khach = layThongTinKhach(usernameKhach);

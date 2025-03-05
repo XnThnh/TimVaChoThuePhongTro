@@ -23,10 +23,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.timvachothuephongtro.R;
 import com.example.timvachothuephongtro.database.DBHelper;
 import com.example.timvachothuephongtro.object.PhongTro;
+import com.example.timvachothuephongtro.object.TinNhan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -34,14 +38,13 @@ public class ChiTietPhong extends AppCompatActivity {
     private static final int REQUEST_TO_CALL = 123;
     private TextView txtChiTietSoTien, txtChiTietDienTich, txtChiTietDiaChi
             , txtChiTietGiaDien, txtChiTietGiaNuoc, txtChiTietGiaWifi,txtChiTietTienIch;
-    private Button btnGoiChoChu;
+    private Button btnGoiChoChu,btnNhanTin;
     private ImageView imageView2;
     private DBHelper db;
     private ArrayList<PhongTro> dsPhongTro;
     private Switch switchThue;
     private FloatingActionButton btnThich;
     private int idPhong;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +64,7 @@ public class ChiTietPhong extends AppCompatActivity {
         txtChiTietTienIch = findViewById(R.id.txtChiTietTienIch);
 
         btnGoiChoChu = findViewById(R.id.btnGoiChoChu);
+        btnNhanTin = findViewById(R.id.btnNhanTin);
 
         switchThue = findViewById(R.id.switchThue);
         btnThich = findViewById(R.id.btnThich);
@@ -77,15 +81,18 @@ public class ChiTietPhong extends AppCompatActivity {
         }
         if(layIDPhong.getBooleanExtra("isKhachThue",false)){
             btnThich.setVisibility(View.VISIBLE);
+            btnNhanTin.setVisibility(View.VISIBLE);
         }
         else {
             btnThich.setVisibility(View.GONE);
+            btnNhanTin.setVisibility(View.GONE);
         }
         //lay thong tin phong tro da duoc an vao trong Recycle View
         idPhong = 0;
         while(idPhong<dsPhongTro.size()){
             if(dsPhongTro.get(idPhong).getId() == layIDPhong.getIntExtra("idPhong",0)){
-                imageView2.setImageResource(R.drawable.img);
+                Glide.with(ChiTietPhong.this).asBitmap()
+                        .load(dsPhongTro.get(idPhong).getUrlAnh()).into(imageView2);
                 txtChiTietSoTien.setText(String.valueOf(dsPhongTro.get(idPhong).getSoTien()));
                 txtChiTietDienTich.setText(String.valueOf(dsPhongTro.get(idPhong).getDienTich()));
                 txtChiTietDiaChi.setText(dsPhongTro.get(idPhong).getDiaChi());
@@ -191,6 +198,26 @@ public class ChiTietPhong extends AppCompatActivity {
                         Toast.makeText(ChiTietPhong.this, "Lỗi", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        btnNhanTin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int idChu = dsPhongTro.get(idPhong).getChuTroId();
+                int idKhach = db.layThongTinKhach(UserSession.getInstance().getUsername()).getId();
+                DatabaseReference messageRef = FirebaseDatabase.getInstance()
+                        .getReference("chats")
+                        .child(idKhach + "_" + idChu);
+                messageRef.child("chutroID").setValue(idChu);
+                messageRef.child("khachthueID").setValue(idKhach);
+                String messageID = messageRef.push().getKey();
+                TinNhan tinNhan = new TinNhan(idKhach,"kt", "Xin chào chu");
+                messageRef.child("messages").child(messageID).setValue(tinNhan);
+                Intent i = new Intent(ChiTietPhong.this, Chat.class);
+                i.putExtra("chatID",idKhach + "_" + idChu);
+                i.putExtra("ktHAYct","kt");
+                startActivity(i);
             }
         });
     }

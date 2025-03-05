@@ -69,6 +69,11 @@ public class DanhSachPhongYeuThich extends AppCompatActivity {
                     i.putExtra("usernameKhach", usernameKhach);
                     startActivity(i);
                 }
+                else if(item.getItemId() == R.id.khachthuechat){
+                    Intent i = new Intent(DanhSachPhongYeuThich.this, DSChatCuaKhach.class);
+                    i.putExtra("usernameKhach", usernameKhach);
+                    startActivity(i);
+                }
                 else if(item.getItemId() == R.id.khachthuettcn){
                     Intent i = new Intent(DanhSachPhongYeuThich.this, ThongTinCaNhan.class);
                     i.putExtra("usernameKhach", usernameKhach);

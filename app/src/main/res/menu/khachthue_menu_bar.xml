@@ -10,7 +10,12 @@
         android:title="Phòng đã thích"
         android:icon="@drawable/ic_heart" />
     <item
+        android:id="@+id/khachthuechat"
+        android:title="Chat"
+        android:icon="@drawable/icon_chat"/>
+    <item
         android:id="@+id/khachthuettcn"
         android:title="Thông tin cá nhân"
         android:icon="@drawable/ic_profile"/>
+
 </menu>

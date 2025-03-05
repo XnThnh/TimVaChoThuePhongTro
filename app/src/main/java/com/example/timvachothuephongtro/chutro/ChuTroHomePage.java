@@ -73,6 +73,12 @@ public class ChuTroHomePage extends AppCompatActivity {
                     startActivity(i2);
                     finish();
                 }
+                else if(item.getItemId() == R.id.chutrochat){
+                    Intent i2 = new Intent(ChuTroHomePage.this, DSChatCuaChu.class);
+                    i2.putExtra("usernameChu", i.getStringExtra("usernameChu"));
+                    startActivity(i2);
+                    finish();
+                }
                 else if(item.getItemId() == R.id.chutrottcn){
                     Intent i2 = new Intent(ChuTroHomePage.this, ThongTinCaNhan.class);
                     i2.putExtra("usernameChu", i.getStringExtra("usernameChu"));

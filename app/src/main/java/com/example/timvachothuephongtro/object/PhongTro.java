@@ -10,12 +10,26 @@ public class PhongTro {
     private int giaWifi;
     private String tienIch;
     private int daChoThue;
+    private String urlAnh;
     private int chuTroId;
 
     public PhongTro() {
     }
 
-    public PhongTro(int id, int soTien, int dienTich, String diaChi, int giaDien, int giaNuoc, int giaWifi, String tienIch, int daChoThue, int chuTroId) {
+    public PhongTro(int soTien, int dienTich, String diaChi, int giaDien, int giaNuoc, int giaWifi, String tienIch, int daChoThue, String urlAnh, int chuTroId) {
+        this.soTien = soTien;
+        this.dienTich = dienTich;
+        this.diaChi = diaChi;
+        this.giaDien = giaDien;
+        this.giaNuoc = giaNuoc;
+        this.giaWifi = giaWifi;
+        this.tienIch = tienIch;
+        this.daChoThue = daChoThue;
+        this.urlAnh = urlAnh;
+        this.chuTroId = chuTroId;
+    }
+
+    public PhongTro(int id, int soTien, int dienTich, String diaChi, int giaDien, int giaNuoc, int giaWifi, String tienIch, int daChoThue, String urlAnh, int chuTroId) {
         this.id = id;
         this.soTien = soTien;
         this.dienTich = dienTich;
@@ -23,20 +37,9 @@ public class PhongTro {
         this.giaDien = giaDien;
         this.giaNuoc = giaNuoc;
         this.giaWifi = giaWifi;
-        this.daChoThue = daChoThue;
-        this.tienIch = tienIch;
-        this.chuTroId = chuTroId;
-    }
-
-    public PhongTro(int soTien, int dienTich, String diaChi, int giaDien, int giaWifi, int giaNuoc, String tienIch, int daChoThue, int chuTroId) {
-        this.soTien = soTien;
-        this.dienTich = dienTich;
-        this.diaChi = diaChi;
-        this.giaDien = giaDien;
-        this.giaWifi = giaWifi;
-        this.giaNuoc = giaNuoc;
         this.tienIch = tienIch;
         this.daChoThue = daChoThue;
+        this.urlAnh = urlAnh;
         this.chuTroId = chuTroId;
     }
 
@@ -72,20 +75,20 @@ public class PhongTro {
         this.diaChi = diaChi;
     }
 
-    public int getGiaNuoc() {
-        return giaNuoc;
-    }
-
-    public void setGiaNuoc(int giaNuoc) {
-        this.giaNuoc = giaNuoc;
-    }
-
     public int getGiaDien() {
         return giaDien;
     }
 
     public void setGiaDien(int giaDien) {
         this.giaDien = giaDien;
+    }
+
+    public int getGiaNuoc() {
+        return giaNuoc;
+    }
+
+    public void setGiaNuoc(int giaNuoc) {
+        this.giaNuoc = giaNuoc;
     }
 
     public int getGiaWifi() {
@@ -110,6 +113,14 @@ public class PhongTro {
 
     public void setDaChoThue(int daChoThue) {
         this.daChoThue = daChoThue;
+    }
+
+    public String getUrlAnh() {
+        return urlAnh;
+    }
+
+    public void setUrlAnh(String urlAnh) {
+        this.urlAnh = urlAnh;
     }
 
     public int getChuTroId() {

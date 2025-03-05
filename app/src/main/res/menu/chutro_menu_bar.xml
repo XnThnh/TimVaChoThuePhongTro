@@ -11,6 +11,10 @@
         android:title="Phòng của tôi"
         android:icon="@drawable/ic_room" />
     <item
+        android:id="@+id/chutrochat"
+        android:title="Chat"
+        android:icon="@drawable/icon_chat"/>
+    <item
         android:id="@+id/chutrottcn"
         android:title="Thông tin cá nhân"
         android:icon="@drawable/ic_profile"/>

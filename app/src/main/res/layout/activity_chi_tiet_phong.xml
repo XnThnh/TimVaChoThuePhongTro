@@ -229,4 +229,16 @@
         app:layout_constraintEnd_toStartOf="@+id/btnGoiChoChu"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_heart" />
+
+    <Button
+        android:id="@+id/btnNhanTin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="Nhắn tin"
+        app:layout_constraintBottom_toBottomOf="@+id/btnGoiChoChu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btnGoiChoChu"
+        app:layout_constraintTop_toTopOf="@+id/btnGoiChoChu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

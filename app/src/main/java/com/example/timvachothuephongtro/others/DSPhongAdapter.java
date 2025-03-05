@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.timvachothuephongtro.R;
 import com.example.timvachothuephongtro.object.PhongTro;
 
@@ -39,7 +40,7 @@ public class DSPhongAdapter extends RecyclerView.Adapter<DSPhongAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.imageView.setImageResource(R.drawable.img);
+        Glide.with(holder.itemView.getContext()).asBitmap().load(dsPhongTro.get(position).getUrlAnh()).into(holder.imageView);
         holder.txtDienTich.setText("Diện tích : " + dsPhongTro.get(position).getDienTich() + "m²");
         holder.txtDiaChi.setText("Địa chỉ : " + dsPhongTro.get(position).getDiaChi());
         holder.txtGiaTien.setText("Giá tiền : " + dsPhongTro.get(position).getSoTien() + "đ");

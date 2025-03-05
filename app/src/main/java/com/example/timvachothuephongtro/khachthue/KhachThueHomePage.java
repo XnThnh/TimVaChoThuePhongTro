@@ -72,13 +72,16 @@ public class KhachThueHomePage extends AppCompatActivity {
                     Intent i = new Intent(KhachThueHomePage.this, DanhSachPhongYeuThich.class);
                     i.putExtra("usernameKhach", getIntent().getStringExtra("usernameKhach"));
                     startActivity(i);
-                    finish();
+                }
+                else if(item.getItemId() == R.id.khachthuechat){
+                    Intent i = new Intent(KhachThueHomePage.this, DSChatCuaKhach.class);
+                    i.putExtra("usernameKhach", getIntent().getStringExtra("usernameKhach"));
+                    startActivity(i);
                 }
                 else if(item.getItemId() == R.id.khachthuettcn){
                     Intent i = new Intent(KhachThueHomePage.this, ThongTinCaNhan.class);
                     i.putExtra("usernameKhach", getIntent().getStringExtra("usernameKhach"));
                     startActivity(i);
-                    finish();
                 }
                 return false;
             }

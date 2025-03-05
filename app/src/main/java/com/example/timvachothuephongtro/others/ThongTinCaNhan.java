@@ -63,6 +63,7 @@ public class ThongTinCaNhan extends AppCompatActivity {
         i = getIntent();
         if(i.hasExtra("usernameChu")){
             try {
+                bottomMenu.inflateMenu(R.menu.chutro_menu_bar);
                 bottomMenu.setSelectedItemId(R.id.chutrottcn);
                 ChuTro chu = db.layThongTinChuTro(i.getStringExtra("usernameChu"));
                 ArrayList<PhongTro> dsPhongTroCuaChu = db.timPhongCuaChu(chu.getTaiKhoan());
@@ -75,7 +76,6 @@ public class ThongTinCaNhan extends AppCompatActivity {
                         soPhongDaChoThue++;
                 }
                 txtThongKe.setText("Số phòng đang có: " + db.timPhongCuaChu(chu.getTaiKhoan()).size() +"\nSố phòng đang cho thuê: " + soPhongDaChoThue);
-                bottomMenu.inflateMenu(R.menu.chutro_menu_bar);
                 bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -103,6 +103,7 @@ public class ThongTinCaNhan extends AppCompatActivity {
             }
         }
         else{
+            bottomMenu.inflateMenu(R.menu.khachthue_menu_bar);
             bottomMenu.setSelectedItemId(R.id.khachthuettcn);
             KhachThue khach = db.layThongTinKhach(i.getStringExtra("usernameKhach"));
             txtTTCNHoTen.setText(khach.getHoTen());
@@ -110,23 +111,21 @@ public class ThongTinCaNhan extends AppCompatActivity {
             txtTTCNVaiTro.setText(khach.getVaiTro());
             txtThongKe.setText("Số phòng có thể thuê: " + db.dsPhongTro().size() +"\nSố phòng đã thích: " + db.layDSPhongYeuThich(khach.getTaiKhoan()).size());
 
-            bottomMenu.inflateMenu(R.menu.khachthue_menu_bar);
-
             bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
                    @Override
                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                        if (item.getItemId() == R.id.khachthuehome) {
                            Intent intent = new Intent(ThongTinCaNhan.this, KhachThueHomePage.class);
-                           intent.putExtra("usernameChu", i.getStringExtra("usernameChu"));
+                           intent.putExtra("usernameKhach", i.getStringExtra("usernameKhach"));
                            startActivity(intent);
                        } else if (item.getItemId() == R.id.phongyeuthich) {
                            Intent intent = new Intent(ThongTinCaNhan.this, DanhSachPhongYeuThich.class);
-                           intent.putExtra("usernameChu", i.getStringExtra("usernameChu"));
+                           intent.putExtra("usernameKhach", i.getStringExtra("usernameKhach"));
                            startActivity(intent);
                        } else if (item.getItemId() == R.id.khachthuettcn) {
                            finish();
                            Intent intent = new Intent(ThongTinCaNhan.this, ThongTinCaNhan.class);
-                           intent.putExtra("usernameChu", i.getStringExtra("usernameChu"));
+                           intent.putExtra("usernameKhach", i.getStringExtra("usernameKhach"));
                            startActivity(intent);
                        }
                        return false;

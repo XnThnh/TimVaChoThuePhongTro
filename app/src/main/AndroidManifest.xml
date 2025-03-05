@@ -4,6 +4,11 @@
 
     <uses-permission-sdk-23 android:name="android.permission.CALL_PHONE" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,6 +19,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimVaChoThuePhongTro"
         tools:targetApi="31">
+        <activity
+            android:name=".others.Chat"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+        <activity
+            android:name=".khachthue.DSChatCuaKhach"
+            android:exported="false"
+            android:label="Chat" />
+        <activity
+            android:name=".chutro.DSChatCuaChu"
+            android:exported="false"
+            android:label="Chat" />
+        <activity
+            android:name=".others.ThemPhong"
+            android:exported="false" />
         <activity
             android:name=".khachthue.DanhSachPhongYeuThich"
             android:exported="false" />
