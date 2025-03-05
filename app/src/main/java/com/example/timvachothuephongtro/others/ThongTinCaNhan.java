@@ -23,8 +23,10 @@ import com.example.timvachothuephongtro.R;
 import com.example.timvachothuephongtro.access.LoginActivity;
 import com.example.timvachothuephongtro.chutro.ChuTro;
 import com.example.timvachothuephongtro.chutro.ChuTroHomePage;
+import com.example.timvachothuephongtro.chutro.DSChatCuaChu;
 import com.example.timvachothuephongtro.chutro.DanhSachPhongCuaChu;
 import com.example.timvachothuephongtro.database.DBHelper;
+import com.example.timvachothuephongtro.khachthue.DSChatCuaKhach;
 import com.example.timvachothuephongtro.khachthue.DanhSachPhongYeuThich;
 import com.example.timvachothuephongtro.khachthue.KhachThue;
 import com.example.timvachothuephongtro.khachthue.KhachThueHomePage;
@@ -89,6 +91,11 @@ public class ThongTinCaNhan extends AppCompatActivity {
                             intent.putExtra("usernameChu", i.getStringExtra("usernameChu"));
                             startActivity(intent);
                         }
+                        else if(item.getItemId() == R.id.chutrochat){
+                            Intent intent = new Intent(ThongTinCaNhan.this, DSChatCuaChu.class);
+                            intent.putExtra("usernameChu", i.getStringExtra("usernameChu"));
+                            startActivity(intent);
+                        }
                         else if(item.getItemId() == R.id.chutrottcn){
                             finish();
                             Intent intent = new Intent(ThongTinCaNhan.this, ThongTinCaNhan.class);
@@ -122,7 +129,13 @@ public class ThongTinCaNhan extends AppCompatActivity {
                            Intent intent = new Intent(ThongTinCaNhan.this, DanhSachPhongYeuThich.class);
                            intent.putExtra("usernameKhach", i.getStringExtra("usernameKhach"));
                            startActivity(intent);
-                       } else if (item.getItemId() == R.id.khachthuettcn) {
+                       }
+                       else if(item.getItemId() == R.id.khachthuechat){
+                           Intent intent = new Intent(ThongTinCaNhan.this, DSChatCuaKhach.class);
+                           intent.putExtra("usernameKhach", i.getStringExtra("usernameKhach"));
+                           startActivity(intent);
+                       }
+                       else if (item.getItemId() == R.id.khachthuettcn) {
                            finish();
                            Intent intent = new Intent(ThongTinCaNhan.this, ThongTinCaNhan.class);
                            intent.putExtra("usernameKhach", i.getStringExtra("usernameKhach"));

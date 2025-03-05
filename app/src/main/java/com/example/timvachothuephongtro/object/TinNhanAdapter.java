@@ -38,7 +38,6 @@ public class TinNhanAdapter extends RecyclerView.Adapter<TinNhanAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TinNhan tinNhan = dsTinNhan.get(position);
-        holder.txtNguoiGui.setText(tinNhan.getNguoiGui());
         holder.txtNoiDung.setText(tinNhan.getNoiDung());
     }
 
@@ -48,24 +47,19 @@ public class TinNhanAdapter extends RecyclerView.Adapter<TinNhanAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNguoiGui;
         TextView txtNoiDung;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtNguoiGui = itemView.findViewById(R.id.txtNguoiGui);
             txtNoiDung = itemView.findViewById(R.id.txtNoiDung);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        for(TinNhan tinNhan:dsTinNhan){
-            if(tinNhan.getNguoiGui().equals(ktHAYct)){
-                return R.layout.item_tin_nhan_gui;
-            }
-            else return R.layout.item_tin_nhan_nhan;
-        }
-        return super.getItemViewType(position);
+        if(dsTinNhan.get(position).getNguoiGui().equals(ktHAYct))
+            return R.layout.item_tin_nhan_gui;
+        else
+            return R.layout.item_tin_nhan_nhan;
     }
 }

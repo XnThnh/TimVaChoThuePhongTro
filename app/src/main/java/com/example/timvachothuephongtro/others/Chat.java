@@ -21,6 +21,7 @@ import com.example.timvachothuephongtro.database.DBHelper;
 import com.example.timvachothuephongtro.khachthue.KhachThue;
 import com.example.timvachothuephongtro.object.TinNhan;
 import com.example.timvachothuephongtro.object.TinNhanAdapter;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,6 +53,7 @@ public class Chat extends AppCompatActivity {
         db = new DBHelper(this);
         chatID = getIntent().getStringExtra("chatID");
         ktHayct = getIntent().getStringExtra("ktHAYct");
+        setTitle(ktHayct,chatID);
         dsTinNhan = new ArrayList<>();
         recView = findViewById(R.id.recyclerView);
         adapter = new TinNhanAdapter(this,dsTinNhan,ktHayct);
@@ -113,5 +115,28 @@ public class Chat extends AppCompatActivity {
                 });
             }
         });
+    }
+    public void setTitle(String kthayct,String child){
+       DatabaseReference dbr = FirebaseDatabase.getInstance().getReference().child("chats").child(child);
+       if(kthayct.equals("kt")){
+           dbr.child("chutroID").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+               @Override
+               public void onSuccess(DataSnapshot dataSnapshot) {
+                    Long id = dataSnapshot.getValue(Long.class);
+                    ChuTro chu = db.layThongTinChuTroTheoID(id.intValue());
+                    setTitle(chu.getHoTen());
+               }
+           });
+       }
+       else {
+           dbr.child("khachthueID").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+               @Override
+               public void onSuccess(DataSnapshot dataSnapshot) {
+                   Long id = dataSnapshot.getValue(Long.class);
+                   KhachThue khach = db.layThongTinKhachTheoID(id.intValue());
+                   setTitle(khach.getHoTen());
+               }
+           });
+       }
     }
 }

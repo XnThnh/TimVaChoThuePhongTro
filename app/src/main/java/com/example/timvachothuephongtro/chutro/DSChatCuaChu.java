@@ -1,6 +1,8 @@
 package com.example.timvachothuephongtro.chutro;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,6 +19,9 @@ import com.example.timvachothuephongtro.database.DBHelper;
 import com.example.timvachothuephongtro.khachthue.DSChatCuaKhach;
 import com.example.timvachothuephongtro.khachthue.KhachThue;
 import com.example.timvachothuephongtro.object.DSChatRecView;
+import com.example.timvachothuephongtro.others.ThongTinCaNhan;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +38,7 @@ public class DSChatCuaChu extends AppCompatActivity {
     private ArrayList<String> dsChatID;
     private DSChatRecView adapter;
     private RecyclerView recView;
+    private BottomNavigationView bottomMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,9 @@ public class DSChatCuaChu extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        bottomMenu = findViewById(R.id.bottomMenu);
+        bottomMenu.setSelectedItemId(R.id.chutrochat);
         db = new DBHelper(this);
         dsChatID = new ArrayList<>();
         usernameChu = getIntent().getStringExtra("usernameChu");
@@ -71,7 +80,40 @@ public class DSChatCuaChu extends AppCompatActivity {
             }
         });
 
+        bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent i = getIntent();
+                if (item.getItemId() == R.id.chutrohome) {
+                    Intent refresh = new Intent(DSChatCuaChu.this, ChuTroHomePage.class);
+                    startActivity(refresh);
+                    finish();
+                } else if (item.getItemId() == R.id.chutrophongcuatoi) {
+                    Intent i2 = new Intent(DSChatCuaChu.this, DanhSachPhongCuaChu.class);
+                    i2.putExtra("usernameChu", i.getStringExtra("usernameChu"));
+                    startActivity(i2);
+                    finish();
+                } else if (item.getItemId() == R.id.chutrochat) {
+                    Intent i2 = new Intent(DSChatCuaChu.this, DSChatCuaChu.class);
+                    i2.putExtra("usernameChu", i.getStringExtra("usernameChu"));
+                    startActivity(i2);
+                    finish();
+                } else if (item.getItemId() == R.id.chutrottcn) {
+                    Intent i2 = new Intent(DSChatCuaChu.this, ThongTinCaNhan.class);
+                    i2.putExtra("usernameChu", i.getStringExtra("usernameChu"));
+                    startActivity(i2);
+                    finish();
+                }
+                return false;
+            }
+        });
     }
-
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, ChuTroHomePage.class);
+        i.putExtra("usernameChu",usernameChu);
+        startActivity(i);
+        finish();
+    }
 }

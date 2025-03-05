@@ -12,11 +12,12 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/chat_color"
         app:layout_constraintBottom_toTopOf="@+id/edtMessage"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/chat_color" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edtMessage"
@@ -34,11 +35,12 @@
     <ImageButton
         android:id="@+id/imgBtnSend"
         android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:background="@color/white"
         android:contentDescription="Send"
         app:layout_constraintBottom_toBottomOf="@+id/edtMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/edtMessage"
         app:srcCompat="@drawable/icon_send" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
